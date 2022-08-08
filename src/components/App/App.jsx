@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import ContactForm from '../ContactForm/ContactForm.jsx';
 import Filter from '../Filter/Filter.jsx';
 import ContactList from '../ContactList/ContactList.jsx';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import s from './App.module.css';
 
 const dataInitial = [
@@ -20,27 +22,26 @@ const App = () => {
   });
   const [filter, setFilter] = useState('');
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (this.state.contacts.length !== prevState.contacts.length) {
-  //     localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-  //   }
-  // }
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts.length]);
 
   const onFilterSearch = e => {
     setFilter(e.target.value);
   };
 
   const addContact = (name, number) => {
-    const repeatOfNames = this.state.contacts.find(
+    const repeatOfNames = contacts.find(
       el => el.name.toLowerCase() === name.toLowerCase()
     );
     if (repeatOfNames) {
-      alert(`${name} is already is in contacts.`);
+      toast.warn(`${name} is already is in contacts.`, {
+        autoClose: 2000,
+        theme: 'colored',
+      });
       return;
     }
-    this.setState(prev => ({
-      contacts: [...prev.contacts, { id: nanoid(), name, number }],
-    }));
+    setContacts(prev => [...prev, { id: nanoid(), name, number }]);
   };
 
   const filterContacts = () => {
@@ -63,6 +64,7 @@ const App = () => {
       <h2 className={s.titleContacts}>Contacts</h2>
       <Filter filter={filter} onFilterSearch={onFilterSearch} />
       <ContactList contacts={contactsFiltered} deleteContact={deleteContact} />
+      <ToastContainer />
     </div>
   );
 };
