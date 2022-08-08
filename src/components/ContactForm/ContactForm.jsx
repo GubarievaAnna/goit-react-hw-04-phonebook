@@ -8,8 +8,8 @@ class ContactForm extends Component {
     number: '',
   };
 
-  onInputChange = (e, key) => {
-    this.setState({ [key]: e.target.value });
+  onInputChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   reset = () => {
@@ -37,7 +37,7 @@ class ContactForm extends Component {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             className={s.input}
             value={name}
-            onChange={e => this.onInputChange(e, 'name')}
+            onChange={this.onInputChange}
             required
           />
         </label>
@@ -50,7 +50,7 @@ class ContactForm extends Component {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             className={s.input}
             value={number}
-            onChange={e => this.onInputChange(e, 'number')}
+            onChange={this.onInputChange}
             required
           />
         </label>
