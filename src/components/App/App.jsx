@@ -24,7 +24,7 @@ const App = () => {
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts.length]);
+  }, [contacts, contacts.length]);
 
   const onFilterSearch = e => {
     setFilter(e.target.value);
