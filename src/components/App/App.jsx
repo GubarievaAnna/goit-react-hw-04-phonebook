@@ -35,7 +35,7 @@ const App = () => {
       el => el.name.toLowerCase() === name.toLowerCase()
     );
     if (repeatOfNames) {
-      toast.warn(`${name} is already is in contacts.`, {
+      toast.error(`${name} is already is in contacts.`, {
         autoClose: 2000,
         theme: 'colored',
       });
@@ -55,7 +55,7 @@ const App = () => {
     setContacts(prev => prev.filter(el => el.id !== id));
   };
 
-  const contactsFiltered = filterContacts();
+  const filteredContacts = filterContacts();
 
   return (
     <div className={s.container}>
@@ -63,7 +63,7 @@ const App = () => {
       <ContactForm addContact={addContact} />
       <h2 className={s.titleContacts}>Contacts</h2>
       <Filter filter={filter} onFilterSearch={onFilterSearch} />
-      <ContactList contacts={contactsFiltered} deleteContact={deleteContact} />
+      <ContactList contacts={filteredContacts} deleteContact={deleteContact} />
       <ToastContainer />
     </div>
   );
