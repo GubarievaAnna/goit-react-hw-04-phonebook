@@ -44,15 +44,14 @@ const App = () => {
     setContacts(prev => [...prev, { id: nanoid(), name, number }]);
   };
 
-  const filterContacts = () => {
-    const filteredContacts = contacts.filter(el =>
-      el.name.toLowerCase().includes(filter.toLowerCase())
-    );
-    return filteredContacts;
-  };
-
   const deleteContact = id => {
     setContacts(prev => prev.filter(el => el.id !== id));
+  };
+
+  const filterContacts = () => {
+    return contacts.filter(el =>
+      el.name.toLowerCase().includes(filter.toLowerCase())
+    );
   };
 
   const filteredContacts = filterContacts();
