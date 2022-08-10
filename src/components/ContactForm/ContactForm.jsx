@@ -6,6 +6,20 @@ const ContactForm = ({ addContact }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
+  const onInputChange = e => {
+    const { name, value } = e.target;
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
+      case 'number':
+        setNumber(value);
+        break;
+      default:
+        return;
+    }
+  };
+
   const reset = () => {
     setName('');
     setNumber('');
@@ -28,7 +42,7 @@ const ContactForm = ({ addContact }) => {
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           className={s.input}
           value={name}
-          onChange={e => setName(e.target.value)}
+          onChange={onInputChange}
           required
         />
       </label>
@@ -41,7 +55,7 @@ const ContactForm = ({ addContact }) => {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           className={s.input}
           value={number}
-          onChange={e => setNumber(e.target.value)}
+          onChange={onInputChange}
           required
         />
       </label>
