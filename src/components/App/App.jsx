@@ -15,16 +15,15 @@ const dataInitial = [
 ];
 
 const App = () => {
-  const [contacts, setContacts] = useState(() => {
-    return !localStorage.getItem('contacts')
-      ? dataInitial
-      : JSON.parse(localStorage.getItem('contacts'));
-  });
+  const [contacts, setContacts] = useState(
+    () => JSON.parse(localStorage.getItem('contacts')) ?? dataInitial
+  );
+
   const [filter, setFilter] = useState('');
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts, contacts.length]);
+  }, [contacts]);
 
   const onFilterSearch = e => {
     setFilter(e.target.value);
@@ -35,7 +34,7 @@ const App = () => {
       el => el.name.toLowerCase() === name.toLowerCase()
     );
     if (repeatOfNames) {
-      toast.error(`${name} is already is in contacts.`, {
+      toast.error(`${name} is already in contacts.`, {
         autoClose: 2000,
         theme: 'colored',
       });
